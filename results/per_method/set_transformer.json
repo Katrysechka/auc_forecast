@@ -1,0 +1,325 @@
+{
+  "schema": "1.0",
+  "method": "set_transformer-A_full",
+  "split_protocol": "time-based 80/20 (sort by hour_start) + 5-fold campaign CV (seed=42) \u2014 same protocol as core/splits.py",
+  "leak_safe": true,
+  "features": "leak-safe set of users + per-user history features",
+  "cv": {
+    "smlar_flat_mean": 31.65637121149259,
+    "smlar_flat_std": 2.3952684758465455,
+    "smlar_per_target": {
+      "at_least_one": 36.62424852816294,
+      "at_least_two": 34.682651905756295,
+      "at_least_three": 24.073003320137094
+    },
+    "monotone_viol_mean": 0.0
+  },
+  "holdout": {
+    "smlar_flat": 21.209359789413938,
+    "monotone_viol": 0.0
+  },
+  "ci": {
+    "type": "split_cp",
+    "alpha": 0.1,
+    "coverage_per_target": {
+      "at_least_one": 0.90452419292999,
+      "at_least_two": 0.9107277049306035,
+      "at_least_three": 0.9032896250287555
+    },
+    "width_per_target": {
+      "at_least_one": 0.11894417925480347,
+      "at_least_two": 0.0795882667887278,
+      "at_least_three": 0.058869143181662954
+    }
+  },
+  "source": "local-cpu eval via src/eval.py",
+  "date": "2026-06-18",
+  "extra": {
+    "variants": [
+      {
+        "name": "set_transformer-A_full",
+        "cv": {
+          "smlar_flat_mean": 31.65637121149259,
+          "smlar_flat_std": 2.3952684758465455,
+          "smlar_per_target": {
+            "at_least_one": 36.62424852816294,
+            "at_least_two": 34.682651905756295,
+            "at_least_three": 24.073003320137094
+          },
+          "smlar_per_target_std": {
+            "at_least_one": 2.0263891080710863,
+            "at_least_two": 2.938792186510786,
+            "at_least_three": 4.296672735546608
+          },
+          "monotone_viol_mean": 0.0,
+          "monotone_viol_per_pair": {
+            "y1_vs_y2": 0.0,
+            "y2_vs_y3": 0.0
+          }
+        },
+        "holdout": {
+          "smlar_flat": 21.209359789413938,
+          "smlar_per_target": {
+            "at_least_one": 35.23715694806815,
+            "at_least_two": 19.02145182565207,
+            "at_least_three": 10.633638704194892
+          },
+          "monotone_viol": 0.0,
+          "monotone_viol_per_pair": {
+            "y1_vs_y2": 0.0,
+            "y2_vs_y3": 0.0
+          },
+          "best_epoch": 31
+        },
+        "ci": {
+          "type": "split_cp",
+          "alpha": 0.1,
+          "coverage_per_target": {
+            "at_least_one": 0.90452419292999,
+            "at_least_two": 0.9107277049306035,
+            "at_least_three": 0.9032896250287555
+          },
+          "width_per_target": {
+            "at_least_one": 0.11894417925480347,
+            "at_least_two": 0.0795882667887278,
+            "at_least_three": 0.058869143181662954
+          }
+        },
+        "use_attention": true,
+        "use_distribution": true,
+        "loss": "smlar_smooth"
+      },
+      {
+        "name": "set_transformer-B_no_attn",
+        "cv": {
+          "smlar_flat_mean": 35.0819013406184,
+          "smlar_flat_std": 1.8797420057518706,
+          "smlar_per_target": {
+            "at_least_one": 40.307589867569384,
+            "at_least_two": 39.33204347309983,
+            "at_least_three": 26.12124355751883
+          },
+          "smlar_per_target_std": {
+            "at_least_one": 2.21420852191736,
+            "at_least_two": 2.450583589561355,
+            "at_least_three": 3.1517261877143032
+          },
+          "monotone_viol_mean": 0.0,
+          "monotone_viol_per_pair": {
+            "y1_vs_y2": 0.0,
+            "y2_vs_y3": 0.0
+          }
+        },
+        "holdout": {
+          "smlar_flat": 24.64412720258704,
+          "smlar_per_target": {
+            "at_least_one": 37.308264687295846,
+            "at_least_two": 23.566838445927687,
+            "at_least_three": 14.134475937511048
+          },
+          "monotone_viol": 0.0,
+          "monotone_viol_per_pair": {
+            "y1_vs_y2": 0.0,
+            "y2_vs_y3": 0.0
+          },
+          "best_epoch": 43
+        },
+        "ci": {
+          "type": "split_cp",
+          "alpha": 0.1,
+          "coverage_per_target": {
+            "at_least_one": 0.9057510927076144,
+            "at_least_two": 0.9231193926846102,
+            "at_least_three": 0.9194386933517368
+          },
+          "width_per_target": {
+            "at_least_one": 0.12702642826624283,
+            "at_least_two": 0.08408461982978568,
+            "at_least_three": 0.06207900456475558
+          }
+        },
+        "use_attention": false,
+        "use_distribution": true,
+        "loss": "smlar_smooth"
+      },
+      {
+        "name": "set_transformer-C_no_distr",
+        "cv": {
+          "smlar_flat_mean": 32.88148036626585,
+          "smlar_flat_std": 4.166798723536736,
+          "smlar_per_target": {
+            "at_least_one": 36.6475787425145,
+            "at_least_two": 37.10188892218245,
+            "at_least_three": 25.29870324854872
+          },
+          "smlar_per_target_std": {
+            "at_least_one": 2.4926948023395115,
+            "at_least_two": 4.991962919115956,
+            "at_least_three": 5.960293895868853
+          },
+          "monotone_viol_mean": 0.0,
+          "monotone_viol_per_pair": {
+            "y1_vs_y2": 0.0,
+            "y2_vs_y3": 0.0
+          }
+        },
+        "holdout": {
+          "smlar_flat": 21.08722596447108,
+          "smlar_per_target": {
+            "at_least_one": 34.098160004046285,
+            "at_least_two": 20.183374961928457,
+            "at_least_three": 10.160976052701187
+          },
+          "monotone_viol": 0.0,
+          "monotone_viol_per_pair": {
+            "y1_vs_y2": 0.0,
+            "y2_vs_y3": 0.0
+          },
+          "best_epoch": 38
+        },
+        "ci": {
+          "type": "split_cp",
+          "alpha": 0.1,
+          "coverage_per_target": {
+            "at_least_one": 0.9119239322137872,
+            "at_least_two": 0.9082125603864734,
+            "at_least_three": 0.9156966490299823
+          },
+          "width_per_target": {
+            "at_least_one": 0.12054529771196913,
+            "at_least_two": 0.07800642193883153,
+            "at_least_three": 0.058655677689471816
+          }
+        },
+        "use_attention": true,
+        "use_distribution": false,
+        "loss": "smlar_smooth"
+      },
+      {
+        "name": "set_transformer-D_no_smlar",
+        "cv": {
+          "smlar_flat_mean": 91.70632701478635,
+          "smlar_flat_std": 11.923553642062622,
+          "smlar_per_target": {
+            "at_least_one": 78.22691359244166,
+            "at_least_two": 105.28737805632116,
+            "at_least_three": 92.9383459990188
+          },
+          "smlar_per_target_std": {
+            "at_least_one": 13.365197729101645,
+            "at_least_two": 13.38562918927351,
+            "at_least_three": 14.765272358629291
+          },
+          "monotone_viol_mean": 0.0,
+          "monotone_viol_per_pair": {
+            "y1_vs_y2": 0.0,
+            "y2_vs_y3": 0.0
+          }
+        },
+        "holdout": {
+          "smlar_flat": 59.73004808666733,
+          "smlar_per_target": {
+            "at_least_one": 53.06902580749768,
+            "at_least_two": 75.67766613194753,
+            "at_least_three": 51.5500192259305
+          },
+          "monotone_viol": 0.0,
+          "monotone_viol_per_pair": {
+            "y1_vs_y2": 0.0,
+            "y2_vs_y3": 0.0
+          },
+          "best_epoch": 39
+        },
+        "ci": {
+          "type": "split_cp",
+          "alpha": 0.1,
+          "coverage_per_target": {
+            "at_least_one": 0.9106893643125528,
+            "at_least_two": 0.9057357564603942,
+            "at_least_three": 0.8908289241622576
+          },
+          "width_per_target": {
+            "at_least_one": 0.21279558951288088,
+            "at_least_two": 0.1518848085312971,
+            "at_least_three": 0.10953232142198929
+          }
+        },
+        "use_attention": true,
+        "use_distribution": true,
+        "loss": "mse"
+      },
+      {
+        "name": "set_transformer-E_none",
+        "cv": {
+          "smlar_flat_mean": 66.39053502298718,
+          "smlar_flat_std": 3.496981151650775,
+          "smlar_per_target": {
+            "at_least_one": 49.997839164629276,
+            "at_least_two": 80.3586919104095,
+            "at_least_three": 70.40093337734126
+          },
+          "smlar_per_target_std": {
+            "at_least_one": 2.909490451849821,
+            "at_least_two": 7.121925639739668,
+            "at_least_three": 4.869859538429097
+          },
+          "monotone_viol_mean": 0.0037267080745341614,
+          "monotone_viol_per_pair": {
+            "y1_vs_y2": 0.0,
+            "y2_vs_y3": 0.0037267080745341614
+          }
+        },
+        "holdout": {
+          "smlar_flat": 67.72445274037355,
+          "smlar_per_target": {
+            "at_least_one": 54.53820352908709,
+            "at_least_two": 88.34265604602976,
+            "at_least_three": 62.10805703812405
+          },
+          "monotone_viol": 0.0,
+          "monotone_viol_per_pair": {
+            "y1_vs_y2": 0.0,
+            "y2_vs_y3": 0.0
+          },
+          "best_epoch": 36
+        },
+        "ci": {
+          "type": "split_cp",
+          "alpha": 0.1,
+          "coverage_per_target": {
+            "at_least_one": 0.9082739053753546,
+            "at_least_two": 0.8995859213250517,
+            "at_least_three": 0.9032972931523655
+          },
+          "width_per_target": {
+            "at_least_one": 0.1381421923469076,
+            "at_least_two": 0.09809877842042466,
+            "at_least_three": 0.07346892893651917
+          }
+        },
+        "use_attention": false,
+        "use_distribution": false,
+        "loss": "mse"
+      }
+    ],
+    "note": "Full-metric local CPU evaluation via src/eval.py. CV: 5-fold campaign CV with per-fold inner sub/calib split for Split CP. Holdout: trained on full 806 train campaigns. Monotonicity is 0 by construction for variants with use_distribution=True (tail-cumsum head guarantees y1 >= y2 >= y3).",
+    "holdout_smlar_per_target": {
+      "at_least_one": 35.23715694806815,
+      "at_least_two": 19.02145182565207,
+      "at_least_three": 10.633638704194892
+    },
+    "holdout_monotone_viol_per_pair": {
+      "y1_vs_y2": 0.0,
+      "y2_vs_y3": 0.0
+    },
+    "cv_smlar_per_target_std": {
+      "at_least_one": 2.0263891080710863,
+      "at_least_two": 2.938792186510786,
+      "at_least_three": 4.296672735546608
+    },
+    "cv_monotone_viol_per_pair": {
+      "y1_vs_y2": 0.0,
+      "y2_vs_y3": 0.0
+    }
+  }
+}

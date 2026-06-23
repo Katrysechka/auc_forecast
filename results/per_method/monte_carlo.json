@@ -1,0 +1,72 @@
+{
+  "schema": "1.0",
+  "method": "monte_carlo+beta",
+  "split_protocol": "time-based 80/20 (sort by hour_start with row_index tiebreaker) + 5-fold campaign CV on train (seed=42)",
+  "leak_safe": true,
+  "features": "leak-safe 39-feat aggregates + per-user history rates",
+  "cv": {
+    "smlar_flat_mean": 28.23709258005756,
+    "smlar_flat_std": 1.5631735906137239,
+    "smlar_per_target": {
+      "at_least_one": 29.668552466512857,
+      "at_least_two": 28.863312569202332,
+      "at_least_three": 26.256151521398788
+    },
+    "monotone_viol_mean": 0.0
+  },
+  "holdout": {
+    "smlar_flat": 23.853116962407018,
+    "monotone_viol": 0.0
+  },
+  "ci": {
+    "type": "split_cp",
+    "alpha": 0.1,
+    "coverage_per_target": {
+      "at_least_one": 0.9044935204355495,
+      "at_least_two": 0.9131354957441914,
+      "at_least_three": 0.9007131354957443
+    },
+    "width_per_target": {
+      "at_least_one": 0.10847719860656413,
+      "at_least_two": 0.09828588734018219,
+      "at_least_three": 0.070365615710247
+    }
+  },
+  "source": "notebook 03_holdout_cp_credible, S=500, alpha_disp=2.21",
+  "date": "2026-06-18",
+  "extra": {
+    "n_simulations": 500,
+    "alpha_dispersion": 2.21,
+    "naive_cv_smlar_mean": 396.24093256784664,
+    "naive_cv_smlar_std": 46.41869069788052,
+    "naive_cv_smlar_per_target": {
+      "at_least_one": 320.8203692923085,
+      "at_least_two": 453.5784813322487,
+      "at_least_three": 425.05285528288084
+    },
+    "cv_smlar_per_target_std": {
+      "at_least_one": 2.998157713904379,
+      "at_least_two": 1.577868855990054,
+      "at_least_three": 3.012717439043268
+    },
+    "cv_monotone_viol_per_pair_presort": {
+      "y1_vs_y2": 0.053347135955831605,
+      "y2_vs_y3": 0.13027375201288244
+    },
+    "holdout_smlar_per_target": {
+      "at_least_one": 36.473600657795416,
+      "at_least_two": 22.009277386978265,
+      "at_least_three": 14.098337752858559
+    },
+    "holdout_monotone_viol_per_pair_presort": {
+      "y1_vs_y2": 0.0049504950495049506,
+      "y2_vs_y3": 0.13861386138613863
+    },
+    "credible_coverage_per_target": {
+      "at_least_one": 0.021102676175139945,
+      "at_least_two": 0.040970784449045325,
+      "at_least_three": 0.06952687677325357
+    },
+    "note_mono_pair": "monotone_viol_per_pair \u0441\u0447\u0438\u0442\u0430\u0435\u0442\u0441\u044f \u0414\u041e post-hoc \u0441\u043e\u0440\u0442\u0438\u0440\u043e\u0432\u043a\u0438 np.sort(...)[::-1]. \u0424\u0438\u043d\u0430\u043b\u044c\u043d\u044b\u0435 \u043f\u0440\u0435\u0434\u0441\u043a\u0430\u0437\u0430\u043d\u0438\u044f (\u0447\u0442\u043e \u043f\u043e\u043f\u0430\u0434\u0430\u044e\u0442 \u0432 monotone_viol_mean=0) \u0443\u0436\u0435 \u043e\u0442\u0441\u043e\u0440\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u044b; per-pair \u0447\u0438\u0441\u043b\u043e \u2014 \u044d\u0442\u043e \u0434\u0438\u0430\u0433\u043d\u043e\u0441\u0442\u0438\u043a\u0430 \u00ab\u043a\u0430\u043a \u0447\u0430\u0441\u0442\u043e \u03b2-CatBoost \u043e\u0448\u0438\u0431\u0430\u0435\u0442\u0441\u044f \u0432 \u043f\u043e\u0440\u044f\u0434\u043a\u0435 y_k\u00bb."
+  }
+}

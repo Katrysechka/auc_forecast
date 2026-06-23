@@ -1,0 +1,45 @@
+{
+  "schema": "1.0",
+  "method": "catboost-optuna",
+  "split_protocol": "time-based 80/20 (sort by hour_start with row_index tiebreaker) + 5-fold campaign CV on train (seed=42)",
+  "leak_safe": true,
+  "features": "leak-safe 39-feat aggregates",
+  "cv": {
+    "smlar_flat_mean": 41.24305238311024,
+    "smlar_flat_std": 4.948698025347208,
+    "smlar_per_target": null,
+    "monotone_viol_mean": 0.06951154052603328
+  },
+  "holdout": {
+    "smlar_flat": 33.66008045099767,
+    "monotone_viol": 0.04950495049504951
+  },
+  "ci": {
+    "type": "split_cp",
+    "alpha": 0.1,
+    "coverage_per_target": {
+      "at_least_one": 0.882163944482785,
+      "at_least_two": 0.8933900774480484,
+      "at_least_three": 0.8958515451269076
+    },
+    "width_per_target": {
+      "at_least_one": 0.12085960244263172,
+      "at_least_two": 0.08797892419330611,
+      "at_least_three": 0.0711977473727156
+    }
+  },
+  "source": "notebook 03_evaluation_and_results",
+  "date": "2026-06-18",
+  "extra": {
+    "holdout_smlar_per_target": {
+      "at_least_one": 46.449716162164066,
+      "at_least_two": 33.44157121055895,
+      "at_least_three": 22.18713263657921
+    },
+    "cb_params_used": {
+      "loaded_from": "/Users/ensamsanovich/auc_forecast/model/best_catboost_optuna.cbm"
+    },
+    "n_holdout": 202,
+    "n_train": 806
+  }
+}

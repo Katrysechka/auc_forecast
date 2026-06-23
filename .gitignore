@@ -1,0 +1,23 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.pytest_cache/
+.DS_Store
+.venv/
+venv/
+env/
+.vscode/
+.idea/
+
+# CatBoost build artifacts (regenerated on every run)
+catboost_info/
+methods/*/catboost_info/
+
+# Local Set Transformer reruns (frozen versions are the committed source of truth)
+methods/set_transformer/results/ablation_summary.csv
+methods/set_transformer/results/ablation_folds.csv
+methods/set_transformer/results/ablation_summary.json
+methods/set_transformer/results/ablation_summary_latest.csv
+
+# Streamlit local state
+.streamlit/

@@ -1,0 +1,6 @@
+variant,cv_smlar_mean,cv_smlar_std,monotone_violation,use_attention,use_distribution,loss,elapsed_min
+A_full,27.532610,2.123637,0.000000,True,True,smlar_smooth,18.799350
+B_no_attn,28.943006,2.296113,0.000000,False,True,smlar_smooth,1.807418
+C_no_distr,34.284481,10.875610,0.000000,True,False,smlar_smooth,18.788654
+D_no_smlar,81.862755,13.878106,0.000000,True,True,mse,18.876781
+E_none,61.255783,3.066996,0.003727,False,False,mse,1.824641
