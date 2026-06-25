@@ -72,10 +72,9 @@ SMLAR(y, ŷ) = mean(|log((ŷ + ε) / (y + ε))|) × 100 %
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-jupyter notebook notebooks/method_1_catboost/   # CatBoost (default + Optuna)
-jupyter notebook notebooks/method_2_mlp/        # MLP × 6 лоссов
-jupyter notebook notebooks/method_3_monte_carlo/  # naive MC + β-коррекция
-
+jupyter notebook notebooks/method_1_catboost/   
+jupyter notebook notebooks/method_2_mlp/        
+jupyter notebook notebooks/method_3_monte_carlo/
 python notebooks/method_4_set_transformer/build_results.py
 
 pytest tests/
