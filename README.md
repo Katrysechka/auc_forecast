@@ -16,7 +16,7 @@ SMLAR(y, ŷ) = mean(|log((ŷ + ε) / (y + ε))|) × 100 %
 0–1), устойчива к малым `y` за счёт ε. Чем меньше — тем лучше.
 
 Параллельно отслеживается **monotonicity violation** — доля кампаний, на которых
-предсказание нарушает `y1 ≥ y2 ≥ y3`. Это формальная ошибка, даже если SMLAR хороший.
+предсказание нарушает `y1 ≥ y2 ≥ y3`.
 
 ## Единый leak-safe протокол
 
@@ -26,7 +26,7 @@ SMLAR(y, ŷ) = mean(|log((ŷ + ε) / (y + ε))|) × 100 %
   кампании в holdout, первые 806 в train. Защищает от temporal leakage.
 - **5-fold campaign CV на train** (seed = 42, `np.random.default_rng`).
 - **Per-campaign cutoff фичи** — все аудиторные и паблишерские агрегаты строятся только
-  по строкам истории `hour < hour_start_j`. 39 фичей.
+  по строкам истории `hour < hour_start_j`.
 - **Split Conformal Prediction** α = 0.10, per-target независимо.
 
 ## Результаты
@@ -35,10 +35,10 @@ SMLAR(y, ŷ) = mean(|log((ŷ + ε) / (y + ε))|) × 100 %
 |---|---|---|---|---|
 | catboost-default | 47.59 ± 5.49 | 40.88 | 4.72 | 0.896 |
 | catboost-optuna | 41.24 ± 4.95 | 33.66 | 6.95 | 0.890 |
-| **catboost-log_link (MultiRMSE on log(y+ε))** | **26.45 ± 0.97** | **22.88** | 4.34 | — |
+| **catboost-log_link (MultiRMSE on log(y+ε))** | **26.45 ± 0.97** | **22.88** | 4.34 | 0.89 |
 | **mlp-smlar_smooth** | **29.17 ± 1.99** | **22.63** | **0.00** | 0.908 |
 | **monte_carlo + β** | **28.24 ± 1.56** | **23.85** | **0.00** | 0.906 |
-| **set_transformer-A_full** | **27.53 ± 2.12** | **21.21** | **0.00** | — |
+| **set_transformer-A_full** | **27.53 ± 2.12** | **21.21** | **0.00** | 0.903 |
 
 ### Ключевые наблюдения
 
@@ -47,23 +47,14 @@ SMLAR(y, ŷ) = mean(|log((ŷ + ε) / (y + ε))|) × 100 %
 - **Proxy-gap MSE → SMLAR-compatible loss работает на ОБЕИХ архитектурах.**
   На MLP: MSE → SMLAR-smooth даёт −38.7 п.п. на CV (67.86 → 29.17). На CatBoost:
   default MultiRMSE → MultiRMSE на `log(y+ε)` даёт −21.1 п.п. на CV (47.59 → 26.45).
-  Смена функции потерь / шкалы таргета — самый большой эмпирический рычаг проекта.
 - **CatBoost с log-link догоняет лидеров** (26.45 % CV / 22.88 % Holdout) — на уровне
-  Set Transformer и лучше mlp-smlar_smooth по CV. Старое утверждение «табличные
-  деревья в принципе не дотягивают» — артефакт неподходящей шкалы таргета, а не
-  ограничение деревьев. **Кастомный SMLAR-loss через `RMSEWithUncertainty` / 3
-  независимых регрессора у CatBoost проваливается** (173.87 % CV) — CatBoost 1.2.x не
-  поддерживает кастомные multi-target objectives; рабочая инкарнация SMLAR-loss для
-  деревьев — именно target-transform (log-link), а не custom objective.
+  Set Transformer и лучше mlp-smlar_smooth по CV. **Кастомный SMLAR-loss через `RMSEWithUncertainty` / 3 независимых регрессора у CatBoost проваливается** (173.87 % CV) — CatBoost 1.2.x не поддерживает кастомные multi-target objectives; SMLAR-loss для
+  деревьев — target-transform (log-link).
 - **Naive Monte Carlo даёт SMLAR ≈ 396 %** — параметрическое NegBinomial-предположение
-  на поюзерных частотах неадекватно. β-CatBoost-калибратор вытаскивает оценку до 28 %.
-  Содержательный вывод: интерпретируемость NegBinomial — фикция, в проде это
-  ML-калибровка над дешёвой генеративной заготовкой.
+  на поюзерных частотах. β-CatBoost-калибратор дает оценку до 28 %.
 - **Четыре метода кучно** (Set Transformer 27.5 / catboost-log_link 26.5 /
   mlp-smlar_smooth 29.2 / MC+β 28.2 по CV) — разница в пределах std. Преимущество
-  Set Transformer — конструктивная гарантия монотонности (0 %, не «повезло») плюс
-  побочный продукт в виде явного распределения по reach-curve `P(X = k)`. Преимущество
-  catboost-log_link — самая дешёвая обучаемость (~6 с против 5 × 18.8 мин на GPU).
+  Set Transformer — конструктивная гарантия монотонности + побочный продукт в виде явного распределения по reach-curve `P(X = k)`. Преимущество catboost-log_link — самая дешёвая обучаемость.
 
 ## Быстрый старт
 
