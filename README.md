@@ -68,7 +68,6 @@ SMLAR(y, ŷ) = mean(|log((ŷ + ε) / (y + ε))|) × 100 %
 ## Быстрый старт
 
 ```bash
-# 1. Зависимости
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
@@ -86,36 +85,35 @@ streamlit run streamlit_app/app.py
 
 ```
 auc_forecast/
-├── core/                  Общая инфраструктура (единственный источник правды)
+├── core/                
 │   ├── config.py            EPS=0.005, SEED=42, MC_N_SIMS=500, ALPHA=0.10, пути
 │   ├── data_io.py           load_raw, load_validate_full
 │   ├── splits.py            time-based 80/20 + 5-fold campaign CV
-│   ├── leak_safe_features.py UserHistoryIndex + PublisherHistoryIndex + 39-feat builder
+│   ├── leak_safe_features.py UserHistoryIndex + PublisherHistoryIndex + N-feat builder
 │   ├── metrics.py           SMLAR + monotonicity_violation + 6 torch-лоссов
 │   ├── conformal.py         SplitCP / MultiTargetSplitCP
 │   ├── ci.py                ConformalRunner-обёртка
 │   ├── runner.py            load_unified_data, Method-протокол
-│   └── reporting.py         схема results.json, рендер md, final_comparison
+│   └── reporting.py       
 │
-├── notebooks/             По одной папке на метод
+├── notebooks/            
 │   ├── method_1_catboost/      01_data_and_features / 02_train_default_and_optuna / 03_evaluation_and_results
 │   ├── method_2_mlp/           01_setup_and_architecture / 02_train_six_losses / 03_evaluation_and_cp
 │   ├── method_3_monte_carlo/   01_naive_mc_and_convergence / 02_beta_correction_training / 03_holdout_cp_credible
 │   └── method_4_set_transformer/
 │       ├── 01_setup_and_architecture / 02_train_ablation / 03_evaluation_and_results
 │       ├── src/                 model, data, train, leak_tests
-│       └── build_results.py     пересборка results.json/md из frozen
+│       └── build_results.py    
 │
 ├── results/
-│   ├── per_method/*.json    унифицированная схема per-метод
-│   ├── per_target_summary.json  per-target breakdown по победителю каждого семейства
-│   ├── final_comparison.csv/md  сводная таблица всех вариантов
-│   └── figures/             сгенерированные графики
+│   ├── per_method/*.json   
+│   ├── per_target_summary.json  
+│   └── figures/             
 │
-├── streamlit_app/app.py   Демо-дашборд (Plotly, 3 вкладки)
-├── model/                 Лучшие веса: best_catboost_optuna.cbm, best_mlp_smlar_smooth.pt
-├── data/                  Сырые TSV
-├── parquet_files/         Не-leaky validate-агрегат
-├── tests/                 33 теста (splits, metrics, CP coverage, leak-safety, ...)
-└── README.md              Этот файл
+├── streamlit_app/app.py   
+├── model/                 
+├── data/                  
+├── parquet_files/         
+├── tests/                 
+└── README.md              
 ```
